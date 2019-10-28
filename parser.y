@@ -19,13 +19,12 @@
 %token T_BOOLEAN T_INTEGER T_TRUE T_FALSE
 
 /* WRITEME: Specify precedence here */
-%left T_ASSIGN
 %left T_OR 
 %left T_AND 
 %left T_LARGERTHAN T_LARGEREQUAL T_EQUALS
 %left T_PLUS T_MINUS 
 %left T_MULTIPLY T_DIVIDE
-%right T_NOT T_UNARYMINUS
+%precedence T_NOT T_UNARYMINUS
 
 %%
 
@@ -48,7 +47,7 @@ Members : Members Member
         | %empty
         ;
 
-Methods : Methods Method
+Methods : Method Methods
         | %empty
         ;
 
@@ -90,11 +89,7 @@ Return : T_RETURN Expression T_SEMICOLON
        | %empty
        ;
 
-Declaration : Type Identifiers T_SEMICOLON
-            ;
-
-Identifiers : Identifiers T_COMMA T_ID
-            | T_ID
+Declaration : Type Vairables T_SEMICOLON
             ;
 
 Statement : Assignment
@@ -158,7 +153,7 @@ BlockStatements : BlockStatements Statement
                 ;
 
 Vairables : Vairables T_COMMA T_ID
-          | Type T_ID
+          | T_ID
           ;
 
 /* WRITME: Write your Bison grammar specification here */

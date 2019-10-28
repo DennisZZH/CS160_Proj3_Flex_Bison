@@ -67,15 +67,6 @@
 "->"                  { return T_ARROW; }
 [a-z][a-z0-9]*        { return T_ID; }
 "="                   { return T_ASSIGN; }
-
-/* Not requied but good to have */       
-"=="                  { return T_EQUALS; } 
-"&&"                  { return T_AND; }
-"||"                  { return T_OR; }
-"elif"                { return T_ELIF; }
-"<"                   {return T_LESSTHAN; }
-"<="                  {return T_LESSEQUAL; }
-
 .                     { yyerror("invalid character"); }
 
 %%
