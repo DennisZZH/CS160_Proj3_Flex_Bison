@@ -126,8 +126,8 @@ Assignment : T_ID T_ASSIGN Expression T_SEMICOLON
            | T_ID T_DOT T_ID T_ASSIGN Expression T_SEMICOLON
            ;
 
-MethodCall : T_ID T_OPENPAREN Arguments T_CLOSEPAREN T_SEMICOLON
-           | T_ID T_DOT T_ID T_OPENPAREN Arguments T_CLOSEPAREN T_SEMICOLON
+MethodCall : T_ID T_OPENPAREN Argument T_CLOSEPAREN T_SEMICOLON
+           | T_ID T_DOT T_ID T_OPENPAREN Argument T_CLOSEPAREN T_SEMICOLON
            ;
 
 IfElse : T_IF Expression T_OPENBRACE BlockStatements T_CLOSEBRACE
@@ -143,12 +143,9 @@ DoWhile : T_DO T_OPENBRACE BlockStatements T_CLOSEBRACE T_WHILE T_OPENPAREN Expr
 Print : T_PRINT Expression T_SEMICOLON
       ;
 
-Arguments : Argument
-          | %empty
-          ;
-
 Argument : Argument T_COMMA Expression
          | Expression
+         | %empty
          ;
 
 BlockStatements : BlockStatements Statement
