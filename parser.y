@@ -35,8 +35,8 @@
 Start : Classes
       ;
 
-Classes : Classes Class
-        | Class
+Classes : Class
+        | Classes Class
         ;
 
 Class : T_ID T_OPENBRACE Members Methods T_CLOSEBRACE
@@ -81,7 +81,7 @@ Declarations : Declarations Declaration
              | %empty
              ;
 
-Statements : Statements Statement
+Statements : Statement Statements 
            | %empty
            ;
 
@@ -119,18 +119,18 @@ Expression : Expression T_PLUS Expression
            | T_TRUE                                      
            | T_FALSE                                     
            | T_NEW T_ID                              
-           | T_NEW T_ID T_OPENPAREN Arguments T_CLOSEPAREN
+           | T_NEW T_ID T_OPENPAREN Argument T_CLOSEPAREN
            ;
 
 Assignment : T_ID T_ASSIGN Expression T_SEMICOLON
            | T_ID T_DOT T_ID T_ASSIGN Expression T_SEMICOLON
            ;
 
-MethodCall : T_ID T_OPENPAREN Arguments T_CLOSEPAREN
-           | T_ID T_DOT T_ID T_OPENPAREN Arguments T_CLOSEPAREN
+MethodCall : T_ID T_OPENPAREN Arguments T_CLOSEPAREN T_SEMICOLON
+           | T_ID T_DOT T_ID T_OPENPAREN Arguments T_CLOSEPAREN T_SEMICOLON
            ;
 
-IfElse : T_IF Expression T_OPENBRACE BlockStatements T_CLOSEPAREN
+IfElse : T_IF Expression T_OPENBRACE BlockStatements T_CLOSEBRACE
        | T_IF Expression T_OPENBRACE BlockStatements T_CLOSEBRACE T_ELSE T_OPENBRACE BlockStatements T_CLOSEBRACE
        ;
 
@@ -140,20 +140,23 @@ While : T_WHILE Expression T_OPENBRACE BlockStatements T_CLOSEBRACE
 DoWhile : T_DO T_OPENBRACE BlockStatements T_CLOSEBRACE T_WHILE T_OPENPAREN Expression T_CLOSEPAREN T_SEMICOLON
         ;
 
-Print : T_PRINT Expression
+Print : T_PRINT Expression T_SEMICOLON
       ;
 
-Arguments : Arguments T_COMMA Expression
-          | Expression
+Arguments : Argument
           | %empty
           ;
+
+Argument : Argument T_COMMA Expression
+         | Expression
+         ;
 
 BlockStatements : BlockStatements Statement
                 | Statement
                 ;
 
-Vairables : Vairables T_COMMA T_ID
-          | T_ID
+Vairables : T_ID
+          | Vairables T_COMMA T_ID
           ;
 
 /* WRITME: Write your Bison grammar specification here */
